@@ -2,51 +2,51 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Hot-Resturant</title>
+  <title>Make Reservation</title>
   <!-- Latest compiled and minified CSS & JS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="https://code.jquery.com/jquery.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <script src="https://kit.fontawesome.com/c502137733.js"></script>
 </head>
 <body>
   <div class="container">
-    <div class="jumbotron">
-      <h1>Hot Resturant</h1>
+    <div class="jumbotron" style="background-color: #eee;">
+      <h1>Restaurant Express!</h1>
+      <h3>Book your reservation below:</h3>
       <hr>
-      <h3>We only have 5 tables! Book your seat before they all are gone!</h3>
-      <hr>
-      <a href="/view"><button class="btn btn-primary btn-lg"><span class="fa fa-list-alt"></span> View Tables</button></a>
-      <a href="/reservation"><button class="btn btn-danger btn-lg"><span class="fa fa-eye"></span> Make Reservation</button></a>
+      <a href="/tables"><button class="btn btn-primary btn-lg"><i class="fas fa-table"></i></span> View Tables</button></a>
+      <a href="/"><button class="btn btn-lg btn-default"><i class="fas fa-home"></i></span></button></a>
     </div>
     <div class="row">
       <div class="col-12">
         <div class="card">
           <div class="card-header">
-            <h3><strong>Table Reservations</strong></h3>
+            <h3><strong>Table Reservation</strong></h3>
           </div>
           <div class="card-body">
             <form method="POST" role="form">
               <div class="form-group">
-                <label for="name">ID</label>
-                <input type="text" class="form-control" id="id">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" id="name">
               </div>
               <div class="form-group">
-                <label for="role">Name</label>
-                <input type="text" class="form-control" id="name">
+                <label for="role">Phone Number</label>
+                <input type="text" class="form-control" id="phone">
               </div>
               <div class="form-group">
                 <label for="age">Email</label>
                 <input type="text" class="form-control" id="email">
               </div>
               <div class="form-group">
-                <label for="force-points">Phone</label>
-                <input type="text" class="form-control" id="phone">
+                <label for="force-points">Unique ID</label>
+                <input type="text" class="form-control" id="id">
               </div>
             </form>
             <br>
             <div class="text-right">
-              <button type="submit" class="btn btn-primary btn-md" id="add-btn"><span class="fa fa-fire"></span> Submit</button>
+              <button type="submit" class="btn btn-primary btn-md" id="add-btn"><span class="fa fa-fire"></span> Add Table</button>
             </div>
           </div>
         </div>
@@ -57,17 +57,19 @@
     $("#add-btn").on("click", (event) => {
       event.preventDefault();
 
-      const newOrder = {
-        id: $("#id").val().trim(),
+      const newTable = {
         name: $("#name").val().trim(),
-        email: $("#email").val().trim(),
         phone: $("#phone").val().trim(),
+        email: $("#email").val().trim(),
+        id: $("#id").val().trim(),
       };
 
-      $.post("/api/reservation", newOrder)
+      $.post("/api/tables", newTable)
         .then((data) => {
-          alert(data.name + " added.");
+          alert("Hi " + data.name + " your order is added!");
         });
+
+      console.log(newTable);
     });
   </script>
 </body>
